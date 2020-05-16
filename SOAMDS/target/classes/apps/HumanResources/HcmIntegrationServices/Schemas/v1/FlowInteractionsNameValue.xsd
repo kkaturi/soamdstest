@@ -1,0 +1,35 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowControllerService/"
+     sdoJava:package="oracle.apps.hcm.processFlows.core.flowControllerService" xmlns:sdoJava="commonj.sdo/java"
+     xmlns="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowControllerService/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:annotation>
+        <xsd:documentation xmlns:oer="http://xmlns.oracle.com/oer">
+            <name>Flow Interactions Name Value</name>
+            <description>List of the flow instance names and tasks that create
+                interactions between the current and active flows.</description>
+            <oer:attributes>
+                <oer:attribute description="From flow instance name" name="FromFlowInstanceName"/>
+                <oer:attribute description="From flow task name" name="FromFlowTaskName"/>
+                <oer:attribute description="To flow instance name" name="ToFlowInstanceName"/>
+                <oer:attribute description="To flow task name" name="ToFlowTaskName"/>
+                <oer:attribute description="Impact calculation flag" name="ImpactCalculationFlag"/>
+            </oer:attributes>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:import namespace="commonj.sdo/java" schemaLocation="sdoJava.xsd"/>
+    <xsd:complexType name="FlowInteractionsNameValue">
+        <xsd:annotation>
+            <xsd:appinfo source="http://xmlns.oracle.com/adf/svc/metadata/">
+                <key xmlns="http://xmlns.oracle.com/adf/svc/metadata/"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="FromFlowInstanceName" nillable="true" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="FromFlowTaskName" nillable="true" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="ToFlowInstanceName" nillable="true" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="ToFlowTaskName" nillable="true" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="ImpactCalculationFlag" nillable="true" type="xsd:boolean"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="flowInteractionsNameValue" type="FlowInteractionsNameValue"/>
+</xsd:schema>

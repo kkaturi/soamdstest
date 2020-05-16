@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions name="LoggingWebservice" targetNamespace="http://oracle.com/sca/soapservice/LoggingEventHandlerSubscriberComposite/LoggingEventHandlerSubscriberComposite/LoggingWebservice" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:inp1="http://xmlns.oracle.com/LoggingDetails" xmlns:tns="http://oracle.com/sca/soapservice/LoggingEventHandlerSubscriberComposite/LoggingEventHandlerSubscriberComposite/LoggingWebservice">
+<wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+<import namespace="http://xmlns.oracle.com/LoggingDetails" schemaLocation="oramds:/apps/CSF/services/logging/xsd/LoggingDetails.xsd"/>
+</schema>
+</wsdl:types>
+<wsdl:message name="requestMessage">
+<wsdl:part name="request" element="inp1:loggerMessage"/>
+</wsdl:message>
+<wsdl:portType name="execute_ptt">
+<wsdl:operation name="logging">
+<wsdl:input message="tns:requestMessage"/>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:portType name="execute_ptt_callback">
+<wsdl:operation name="loggingCallBack">
+<wsdl:input message="tns:requestMessage"/>
+</wsdl:operation>
+</wsdl:portType>
+</wsdl:definitions>

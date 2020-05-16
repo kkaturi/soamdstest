@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+     name="FlowActionsService"
+     targetNamespace="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:errors="http://xmlns.oracle.com/adf/svc/errors/"
+     xmlns:orafault="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0"
+     xmlns:tns="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:types="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/types/">
+    <wsdl:documentation xmlns:oer="http://xmlns.oracle.com/oer">
+        <name>Flow Actions Service</name>
+        <description>Service to perform task actions included in payroll flows such as
+            the Payroll Cycle flow. These task actions include actions such as
+            submit, retry, and roll back of tasks.</description>
+        <docCategories>
+            <category>External</category>
+        </docCategories>
+        <oer:lifecycle>Active</oer:lifecycle>
+        <oer:compatibility>Supported - Backward Compatibility Assured</oer:compatibility>
+        <oer:operation name="getFlowTaskInstanceStatus">
+            <description>Method that retrieves the flow task instance status.</description>
+            <oer:lifecycle>Active</oer:lifecycle>
+            <oer:parameters>
+                <oer:parameter name="flowInstanceName" description="Flow Instance Name."/>
+                <oer:parameter name="flowTaskInstanceName" description="Flow Task instance name."/>
+                <oer:parameter name="legislativeDataGroupName" description="Legislative data group name."/>
+                <oer:return description="Status"/>
+            </oer:parameters>
+        </oer:operation>
+        <oer:operation name="getAvailableActions">
+            <description>Function gets the list of all the actions that can be performed
+                on the task instance.</description>
+            <oer:lifecycle>Active</oer:lifecycle>
+            <oer:parameters>
+                <oer:parameter name="flowInstanceName" description="Flow instance name."/>
+                <oer:parameter name="flowTaskInstanceName" description="Flow task instance name."/>
+                <oer:parameter name="legislativeDataGroupName" description="Leislative data group name."/>
+                <oer:return description="Actions"/>
+            </oer:parameters>
+        </oer:operation>
+        <oer:operation name="performAction">
+            <description>Function to perform a given action on a flow task instance.</description>
+            <oer:lifecycle>Active</oer:lifecycle>
+            <oer:parameters>
+                <oer:parameter name="flowInstanceName" description="Flow instance name."/>
+                <oer:parameter name="flowTaskInstanceName" description="Flow task instance name."/>
+                <oer:parameter name="actionName" description="Action name."/>
+                <oer:parameter name="legislativeDataGroupName" description="Legislative data group name."/>
+                <oer:return description="Actions"/>
+            </oer:parameters>
+        </oer:operation>
+        <oer:operation name="submitFlow">
+            <description>Function to submit a flow instance</description>
+            <oer:lifecycle>Active</oer:lifecycle>
+            <oer:parameters>
+                <oer:parameter name="flowName" description="Flow name."/>
+                <oer:parameter name="parameterValues" description="Flow parameter values."/>
+                <oer:parameter name="flowInstanceName" description="Flow instance name."/>
+                <oer:parameter name="legislativeDataGroupName" description="Legislative data group name."/>
+                <oer:parameter name="crossFlowInteractionList" description="Cross flow interaction list."/>
+                <oer:parameter name="scheduleFormulaTypeName" description="Schedule formula type name."/>
+                <oer:parameter name="scheduleFormulaName" description="Schedule formula name."/>
+                <oer:parameter name="scheduledDate" description="Scheduled date."/>
+                <oer:parameter name="recurringFlag" description="Recurring flag indicating if its a recurring flow instance."/>
+                <oer:parameter name="endDate" description="Schedule end data"/>
+                <oer:return description="None"/>
+            </oer:parameters>
+        </oer:operation>
+        <oer:operation name="submitAndGetFlowInstanceId">
+            <description>Function to submit a flow instance and return the flow instance
+                ID</description>
+            <oer:parameters>
+                <oer:parameter name="flowName" description="Flow name."/>
+                <oer:parameter name="parameterValues" description="Flow parameter values."/>
+                <oer:parameter name="flowInstanceName" description="Flow instance name."/>
+                <oer:parameter name="legislativeDataGroupName" description="Legislative data group name."/>
+                <oer:parameter name="crossFlowInteractionList" description="Cross flow interaction list."/>
+                <oer:parameter name="scheduleFormulaTypeName" description="Schedule formula type name."/>
+                <oer:parameter name="scheduleFormulaName" description="Schedule formula type name."/>
+                <oer:parameter name="scheduledDate" description="Scheduled date."/>
+                <oer:parameter name="recurringFlag" description="Recurring flag indicating if its a recurring flow instance."/>
+                <oer:parameter name="endDate" description="Schedule end data"/>
+                <oer:return description="None"/>
+            </oer:parameters>
+        </oer:operation>
+        <oer:operation name="getFlowTaskRequestIdAndStatus">
+            <description>Method that retrieves the flow task instance status and the ess 
+                request id.</description>
+            <oer:lifecycle>Active</oer:lifecycle>
+            <oer:parameters>
+                <oer:parameter name="flowInstanceName" description="Flow Instance Name."/>
+                <oer:parameter name="flowTaskInstanceName" description="Flow Task instance name."/>
+                <oer:parameter name="legislativeDataGroupName" description="Legislative data group name."/>
+                <oer:return description="Ess request and task status"/>
+            </oer:parameters>
+        </oer:operation>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="FlowActionsService">
+        <plnk:role name="FlowActionsServiceProvider">
+            <plnk:portType name="tns:FlowActionsService"/>
+        </plnk:role>
+        <plnk:role name="FlowActionsServiceRequestor">
+            <plnk:portType name="tns:FlowActionsServiceResponse"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+<wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="FlowActionsServiceResponse_Fault_Policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"/><wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="FlowActionsServiceResponse_Input_Policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+   <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+      <sp:Body/>
+      <sp:Header Namespace="http://www.w3.org/2005/08/addressing"/>
+      <sp:Header Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing"/>
+      <sp:Header Name="fmw-context" Namespace="http://xmlns.oracle.com/fmw/context/1.0"/>
+   </sp:SignedParts>
+   <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+      <sp:Body/>
+      <sp:Header Name="fmw-context" Namespace="http://xmlns.oracle.com/fmw/context/1.0"/>
+   </sp:EncryptedParts>
+</wsp:Policy><wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="FlowActionsServiceResponse_Output_Policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+   <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+      <sp:Body/>
+   </sp:SignedParts>
+   <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+      <sp:Body/>
+   </sp:EncryptedParts>
+</wsp:Policy><wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="FlowActionsServiceSoapHttpPort_Fault_Policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+   <wsp:ExactlyOne>
+      <wsp:All/>
+      <wsp:All/>
+      <wsp:All/>
+      <wsp:All/>
+   </wsp:ExactlyOne>
+</wsp:Policy><wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="FlowActionsServiceSoapHttpPort_Input_Policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+   <wsp:ExactlyOne>
+      <wsp:All>
+         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <sp:Body/>
+            <sp:Header Namespace="http://www.w3.org/2005/08/addressing"/>
+            <sp:Header Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing"/>
+            <sp:Header Name="fmw-context" Namespace="http://xmlns.oracle.com/fmw/context/1.0"/>
+         </sp:SignedParts>
+         <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <sp:Body/>
+            <sp:Header Name="fmw-context" Namespace="http://xmlns.oracle.com/fmw/context/1.0"/>
+         </sp:EncryptedParts>
+      </wsp:All>
+      <wsp:All>
+         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <sp:Body/>
+            <sp:Header Namespace="http://www.w3.org/2005/08/addressing"/>
+            <sp:Header Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing"/>
+            <sp:Header Name="fmw-context" Namespace="http://xmlns.oracle.com/fmw/context/1.0"/>
+         </sp:SignedParts>
+         <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <sp:Body/>
+            <sp:Header Name="fmw-context" Namespace="http://xmlns.oracle.com/fmw/context/1.0"/>
+         </sp:EncryptedParts>
+      </wsp:All>
+      <wsp:All>
+         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <sp:Body/>
+            <sp:Header Namespace="http://www.w3.org/2005/08/addressing"/>
+            <sp:Header Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing"/>
+            <sp:Header Name="fmw-context" Namespace="http://xmlns.oracle.com/fmw/context/1.0"/>
+         </sp:SignedParts>
+         <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <sp:Body/>
+            <sp:Header Name="fmw-context" Namespace="http://xmlns.oracle.com/fmw/context/1.0"/>
+         </sp:EncryptedParts>
+      </wsp:All>
+      <wsp:All>
+         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <sp:Body/>
+            <sp:Header Namespace="http://www.w3.org/2005/08/addressing"/>
+            <sp:Header Namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing"/>
+            <sp:Header Name="fmw-context" Namespace="http://xmlns.oracle.com/fmw/context/1.0"/>
+         </sp:SignedParts>
+         <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <sp:Body/>
+            <sp:Header Name="fmw-context" Namespace="http://xmlns.oracle.com/fmw/context/1.0"/>
+         </sp:EncryptedParts>
+      </wsp:All>
+   </wsp:ExactlyOne>
+</wsp:Policy><wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="FlowActionsServiceSoapHttpPort_Output_Policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+   <wsp:ExactlyOne>
+      <wsp:All>
+         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <sp:Body/>
+         </sp:SignedParts>
+         <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <sp:Body/>
+         </sp:EncryptedParts>
+      </wsp:All>
+      <wsp:All>
+         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <sp:Body/>
+         </sp:SignedParts>
+         <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <sp:Body/>
+         </sp:EncryptedParts>
+      </wsp:All>
+      <wsp:All>
+         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <sp:Body/>
+         </sp:SignedParts>
+         <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <sp:Body/>
+         </sp:EncryptedParts>
+      </wsp:All>
+      <wsp:All>
+         <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <sp:Body/>
+         </sp:SignedParts>
+         <sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <sp:Body/>
+         </sp:EncryptedParts>
+      </wsp:All>
+   </wsp:ExactlyOne>
+</wsp:Policy><wsp:Policy xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="wsaddr_policy" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy">
+   <wsaw:UsingAddressing xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"/>
+</wsp:Policy><wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="wss11_saml_or_username_token_with_message_protection_service_policy">
+   <wsp:ExactlyOne>
+      <wsp:All>
+         <sp:SymmetricBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:ProtectionToken>
+                  <wsp:Policy>
+                     <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Never">
+                        <wsp:Policy>
+                           <sp:RequireThumbprintReference/>
+                           <sp:WssX509V3Token11/>
+                        </wsp:Policy>
+                     </sp:X509Token>
+                  </wsp:Policy>
+               </sp:ProtectionToken>
+               <sp:AlgorithmSuite>
+                  <wsp:Policy>
+                     <sp:Basic128/>
+                  </wsp:Policy>
+               </sp:AlgorithmSuite>
+               <sp:Layout>
+                  <wsp:Policy>
+                     <sp:Lax/>
+                  </wsp:Policy>
+               </sp:Layout>
+               <sp:IncludeTimestamp/>
+               <sp:ProtectTokens/>
+               <sp:OnlySignEntireHeadersAndBody/>
+            </wsp:Policy>
+         </sp:SymmetricBinding>
+         <sp:SignedSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:SamlToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                  <wsp:Policy>
+                     <sp:WssSamlV11Token11/>
+                  </wsp:Policy>
+               </sp:SamlToken>
+            </wsp:Policy>
+         </sp:SignedSupportingTokens>
+         <sp:EndorsingSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                  <wsp:Policy>
+                     <sp:WssX509V3Token11/>
+                  </wsp:Policy>
+               </sp:X509Token>
+            </wsp:Policy>
+         </sp:EndorsingSupportingTokens>
+         <sp:Wss11 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:RequireSignatureConfirmation/>
+               <sp:MustSupportRefEncryptedKey/>
+            </wsp:Policy>
+         </sp:Wss11>
+      </wsp:All>
+      <wsp:All>
+         <sp:SymmetricBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:ProtectionToken>
+                  <wsp:Policy>
+                     <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Never">
+                        <wsp:Policy>
+                           <sp:RequireThumbprintReference/>
+                           <sp:WssX509V3Token11/>
+                        </wsp:Policy>
+                     </sp:X509Token>
+                  </wsp:Policy>
+               </sp:ProtectionToken>
+               <sp:AlgorithmSuite>
+                  <wsp:Policy>
+                     <sp:Basic128Exn256/>
+                  </wsp:Policy>
+               </sp:AlgorithmSuite>
+               <sp:Layout>
+                  <wsp:Policy>
+                     <sp:Lax/>
+                  </wsp:Policy>
+               </sp:Layout>
+               <sp:IncludeTimestamp/>
+               <sp:ProtectTokens/>
+               <sp:OnlySignEntireHeadersAndBody/>
+            </wsp:Policy>
+         </sp:SymmetricBinding>
+         <sp:SignedSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:SamlToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                  <wsp:Policy>
+                     <sp:WssSamlV11Token11/>
+                  </wsp:Policy>
+               </sp:SamlToken>
+            </wsp:Policy>
+         </sp:SignedSupportingTokens>
+         <sp:EndorsingSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                  <wsp:Policy>
+                     <sp:WssX509V3Token11/>
+                  </wsp:Policy>
+               </sp:X509Token>
+            </wsp:Policy>
+         </sp:EndorsingSupportingTokens>
+         <sp:Wss11 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:RequireSignatureConfirmation/>
+               <sp:MustSupportRefEncryptedKey/>
+            </wsp:Policy>
+         </sp:Wss11>
+      </wsp:All>
+      <wsp:All>
+         <sp:SymmetricBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:ProtectionToken>
+                  <wsp:Policy>
+                     <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Never">
+                        <wsp:Policy>
+                           <sp:RequireThumbprintReference/>
+                           <sp:WssX509V3Token11/>
+                        </wsp:Policy>
+                     </sp:X509Token>
+                  </wsp:Policy>
+               </sp:ProtectionToken>
+               <sp:AlgorithmSuite>
+                  <wsp:Policy>
+                     <sp:Basic128/>
+                  </wsp:Policy>
+               </sp:AlgorithmSuite>
+               <sp:Layout>
+                  <wsp:Policy>
+                     <sp:Lax/>
+                  </wsp:Policy>
+               </sp:Layout>
+               <sp:IncludeTimestamp/>
+               <sp:OnlySignEntireHeadersAndBody/>
+            </wsp:Policy>
+         </sp:SymmetricBinding>
+         <sp:SignedSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                  <wsp:Policy>
+                     <sp:WssUsernameToken10/>
+                  </wsp:Policy>
+               </sp:UsernameToken>
+            </wsp:Policy>
+         </sp:SignedSupportingTokens>
+         <sp:Wss11 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:RequireSignatureConfirmation/>
+               <sp:MustSupportRefEncryptedKey/>
+            </wsp:Policy>
+         </sp:Wss11>
+      </wsp:All>
+      <wsp:All>
+         <sp:SymmetricBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:ProtectionToken>
+                  <wsp:Policy>
+                     <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Never">
+                        <wsp:Policy>
+                           <sp:RequireThumbprintReference/>
+                           <sp:WssX509V3Token11/>
+                        </wsp:Policy>
+                     </sp:X509Token>
+                  </wsp:Policy>
+               </sp:ProtectionToken>
+               <sp:AlgorithmSuite>
+                  <wsp:Policy>
+                     <sp:Basic128Exn256/>
+                  </wsp:Policy>
+               </sp:AlgorithmSuite>
+               <sp:Layout>
+                  <wsp:Policy>
+                     <sp:Lax/>
+                  </wsp:Policy>
+               </sp:Layout>
+               <sp:IncludeTimestamp/>
+               <sp:OnlySignEntireHeadersAndBody/>
+            </wsp:Policy>
+         </sp:SymmetricBinding>
+         <sp:SignedSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                  <wsp:Policy>
+                     <sp:WssUsernameToken10/>
+                  </wsp:Policy>
+               </sp:UsernameToken>
+            </wsp:Policy>
+         </sp:SignedSupportingTokens>
+         <sp:Wss11 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:RequireSignatureConfirmation/>
+               <sp:MustSupportRefEncryptedKey/>
+            </wsp:Policy>
+         </sp:Wss11>
+      </wsp:All>
+      <wsp:All>
+         <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:TransportToken>
+                  <wsp:Policy>
+                     <sp:HttpsToken RequireClientCertificate="false">
+                        <wsp:Policy/>
+                     </sp:HttpsToken>
+                  </wsp:Policy>
+               </sp:TransportToken>
+               <sp:Layout>
+                  <wsp:Policy>
+                     <sp:Lax/>
+                  </wsp:Policy>
+               </sp:Layout>
+               <sp:IncludeTimestamp/>
+            </wsp:Policy>
+         </sp:TransportBinding>
+         <sp:SupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:SamlToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                  <wsp:Policy>
+                     <sp:WssSamlV11Token10/>
+                  </wsp:Policy>
+               </sp:SamlToken>
+            </wsp:Policy>
+         </sp:SupportingTokens>
+      </wsp:All>
+      <wsp:All>
+         <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:TransportToken>
+                  <wsp:Policy>
+                     <sp:HttpsToken RequireClientCertificate="false">
+                        <wsp:Policy/>
+                     </sp:HttpsToken>
+                  </wsp:Policy>
+               </sp:TransportToken>
+               <sp:Layout>
+                  <wsp:Policy>
+                     <sp:Lax/>
+                  </wsp:Policy>
+               </sp:Layout>
+               <sp:IncludeTimestamp/>
+            </wsp:Policy>
+         </sp:TransportBinding>
+         <sp:SupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:UsernameToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                  <wsp:Policy>
+                     <sp:WssUsernameToken10/>
+                  </wsp:Policy>
+               </sp:UsernameToken>
+            </wsp:Policy>
+         </sp:SupportingTokens>
+      </wsp:All>
+      <wsp:All>
+         <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:TransportToken>
+                  <wsp:Policy>
+                     <sp:HttpsToken RequireClientCertificate="false">
+                        <wsp:Policy/>
+                     </sp:HttpsToken>
+                  </wsp:Policy>
+               </sp:TransportToken>
+               <sp:Layout>
+                  <wsp:Policy>
+                     <sp:Lax/>
+                  </wsp:Policy>
+               </sp:Layout>
+            </wsp:Policy>
+         </sp:TransportBinding>
+      </wsp:All>
+      <wsp:All>
+         <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+            <wsp:Policy>
+               <sp:TransportToken>
+                  <wsp:Policy>
+                     <sp:HttpsToken RequireClientCertificate="false">
+                        <wsp:Policy>
+                           <osp:HttpJwtAuthentication xmlns:osp="http://schemas.oracle.com/ws/2012/01/wssecuritypolicy"/>
+                        </wsp:Policy>
+                     </sp:HttpsToken>
+                  </wsp:Policy>
+               </sp:TransportToken>
+               <sp:Layout>
+                  <wsp:Policy>
+                     <sp:Lax/>
+                  </wsp:Policy>
+               </sp:Layout>
+            </wsp:Policy>
+         </sp:TransportBinding>
+      </wsp:All>
+   </wsp:ExactlyOne>
+</wsp:Policy><wsp:Policy xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" wsu:Id="wss11_saml_token_with_message_protection_client_policy">
+   <sp:SymmetricBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+      <wsp:Policy>
+         <sp:ProtectionToken>
+            <wsp:Policy>
+               <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Never">
+                  <wsp:Policy>
+                     <sp:RequireThumbprintReference/>
+                     <sp:WssX509V3Token11/>
+                  </wsp:Policy>
+               </sp:X509Token>
+            </wsp:Policy>
+         </sp:ProtectionToken>
+         <sp:AlgorithmSuite>
+            <wsp:Policy>
+               <sp:Basic128/>
+            </wsp:Policy>
+         </sp:AlgorithmSuite>
+         <sp:Layout>
+            <wsp:Policy>
+               <sp:Lax/>
+            </wsp:Policy>
+         </sp:Layout>
+         <sp:IncludeTimestamp/>
+         <sp:ProtectTokens/>
+         <sp:OnlySignEntireHeadersAndBody/>
+      </wsp:Policy>
+   </sp:SymmetricBinding>
+   <sp:SignedSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+      <wsp:Policy>
+         <sp:SamlToken sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+            <wsp:Policy>
+               <sp:WssSamlV11Token11/>
+            </wsp:Policy>
+         </sp:SamlToken>
+      </wsp:Policy>
+   </sp:SignedSupportingTokens>
+   <sp:EndorsingSupportingTokens xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+      <wsp:Policy>
+         <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+            <wsp:Policy>
+               <sp:WssX509V3Token11/>
+            </wsp:Policy>
+         </sp:X509Token>
+      </wsp:Policy>
+   </sp:EndorsingSupportingTokens>
+   <sp:Wss11 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+      <wsp:Policy>
+         <sp:RequireSignatureConfirmation/>
+         <sp:MustSupportRefEncryptedKey/>
+      </wsp:Policy>
+   </sp:Wss11>
+</wsp:Policy>    <wsdl:import namespace="http://xmlns.oracle.com/adf/svc/errors/" location="https://eedu-dev1.hcm.em3.oraclecloud.com:443/hcmProcFlowCoreController/FlowActionsService?WSDL=/META-INF/wsdl/ServiceException.wsdl"/>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0" schemaLocation="https://eedu-dev1.hcm.em3.oraclecloud.com:443/hcmProcFlowCoreController/FlowActionsService?XSD=/META-INF/oracle-webservices-async-fault-11_0.xsd"/>
+            <import namespace="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/types/"
+              schemaLocation="oramds:/apps/HumanResources/HcmIntegrationServices/Schemas/v1/FlowActionsService.xsd"/>
+                 <!--
+                 oramds:/apps/HumanResources/HcmIntegrationServices/Schemas/v1/FlowActionsService.xsd"/>
+                 https://eedu-dev1.hcm.em3.oraclecloud.com:443/hcmProcFlowCoreController/FlowActionsService?XSD=/oracle/apps/hcm/processFlows/core/flowActionsService/FlowActionsService.xsd"/>
+                 -->
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="FlowActionsService_getFlowTaskInstanceStatus">
+        <wsdl:part name="parameters" element="types:getFlowTaskInstanceStatus"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_getFlowTaskInstanceStatusResponse">
+        <wsdl:part name="parameters" element="types:getFlowTaskInstanceStatusResponse"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_getAvailableActions">
+        <wsdl:part name="parameters" element="types:getAvailableActions"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_getAvailableActionsResponse">
+        <wsdl:part name="parameters" element="types:getAvailableActionsResponse"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_performAction">
+        <wsdl:part name="parameters" element="types:performAction"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_performActionResponse">
+        <wsdl:part name="parameters" element="types:performActionResponse"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_submitFlow">
+        <wsdl:part name="parameters" element="types:submitFlow"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_submitFlowResponse">
+        <wsdl:part name="parameters" element="types:submitFlowResponse"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_submitFlowAsync">
+        <wsdl:part name="parameters" element="types:submitFlowAsync"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_getAvailableActionsAsync">
+        <wsdl:part name="parameters" element="types:getAvailableActionsAsync"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_performActionAsync">
+        <wsdl:part name="parameters" element="types:performActionAsync"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_getFlowTaskInstanceStatusAsync">
+        <wsdl:part name="parameters" element="types:getFlowTaskInstanceStatusAsync"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_submitAndGetFlowInstanceId">
+        <wsdl:part name="parameters" element="types:submitAndGetFlowInstanceId"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_submitAndGetFlowInstanceIdResponse">
+        <wsdl:part name="parameters" element="types:submitAndGetFlowInstanceIdResponse"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_submitAndGetFlowInstanceIdAsync">
+        <wsdl:part name="parameters" element="types:submitAndGetFlowInstanceIdAsync"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_getFlowTaskRequestIdAndStatus">
+        <wsdl:part name="parameters" element="types:getFlowTaskRequestIdAndStatus"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_getFlowTaskRequestIdAndStatusResponse">
+        <wsdl:part name="parameters" element="types:getFlowTaskRequestIdAndStatusResponse"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_getFlowTaskRequestIdAndStatusAsync">
+        <wsdl:part name="parameters" element="types:getFlowTaskRequestIdAndStatusAsync"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_onFault">
+        <wsdl:part name="parameters" element="orafault:Fault"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_submitFlowAsyncResponse">
+        <wsdl:part name="parameters" element="types:submitFlowAsyncResponse"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_getAvailableActionsAsyncResponse">
+        <wsdl:part name="parameters" element="types:getAvailableActionsAsyncResponse"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_performActionAsyncResponse">
+        <wsdl:part name="parameters" element="types:performActionAsyncResponse"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_getFlowTaskInstanceStatusAsyncResponse">
+        <wsdl:part name="parameters" element="types:getFlowTaskInstanceStatusAsyncResponse"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_submitAndGetFlowInstanceIdAsyncResponse">
+        <wsdl:part name="parameters" element="types:submitAndGetFlowInstanceIdAsyncResponse"/>
+    </wsdl:message>
+    <wsdl:message name="FlowActionsService_getFlowTaskRequestIdAndStatusAsyncResponse">
+        <wsdl:part name="parameters" element="types:getFlowTaskRequestIdAndStatusAsyncResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="FlowActionsService">
+        <wsdl:documentation/>
+        <wsdl:operation name="getFlowTaskInstanceStatus">
+            <wsdl:input message="tns:FlowActionsService_getFlowTaskInstanceStatus"/>
+            <wsdl:output message="tns:FlowActionsService_getFlowTaskInstanceStatusResponse"/>
+            <wsdl:fault name="ServiceException" message="errors:ServiceException"/>
+        </wsdl:operation>
+        <wsdl:operation name="getAvailableActions">
+            <wsdl:input message="tns:FlowActionsService_getAvailableActions"/>
+            <wsdl:output message="tns:FlowActionsService_getAvailableActionsResponse"/>
+            <wsdl:fault name="ServiceException" message="errors:ServiceException"/>
+        </wsdl:operation>
+        <wsdl:operation name="performAction">
+            <wsdl:input message="tns:FlowActionsService_performAction"/>
+            <wsdl:output message="tns:FlowActionsService_performActionResponse"/>
+            <wsdl:fault name="ServiceException" message="errors:ServiceException"/>
+        </wsdl:operation>
+        <wsdl:operation name="submitFlow">
+            <wsdl:input message="tns:FlowActionsService_submitFlow"/>
+            <wsdl:output message="tns:FlowActionsService_submitFlowResponse"/>
+            <wsdl:fault name="ServiceException" message="errors:ServiceException"/>
+        </wsdl:operation>
+        <wsdl:operation name="submitFlowAsync">
+            <wsdl:input message="tns:FlowActionsService_submitFlowAsync" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/submitFlowAsync"/>
+        </wsdl:operation>
+        <wsdl:operation name="getAvailableActionsAsync">
+            <wsdl:input message="tns:FlowActionsService_getAvailableActionsAsync" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/getAvailableActionsAsync"/>
+        </wsdl:operation>
+        <wsdl:operation name="performActionAsync">
+            <wsdl:input message="tns:FlowActionsService_performActionAsync" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/performActionAsync"/>
+        </wsdl:operation>
+        <wsdl:operation name="getFlowTaskInstanceStatusAsync">
+            <wsdl:input message="tns:FlowActionsService_getFlowTaskInstanceStatusAsync" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/getFlowTaskInstanceStatusAsync"/>
+        </wsdl:operation>
+        <wsdl:operation name="submitAndGetFlowInstanceId">
+            <wsdl:input message="tns:FlowActionsService_submitAndGetFlowInstanceId"/>
+            <wsdl:output message="tns:FlowActionsService_submitAndGetFlowInstanceIdResponse"/>
+            <wsdl:fault name="ServiceException" message="errors:ServiceException"/>
+        </wsdl:operation>
+        <wsdl:operation name="submitAndGetFlowInstanceIdAsync">
+            <wsdl:input message="tns:FlowActionsService_submitAndGetFlowInstanceIdAsync" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/submitAndGetFlowInstanceIdAsync"/>
+        </wsdl:operation>
+        <wsdl:operation name="getFlowTaskRequestIdAndStatus">
+            <wsdl:input message="tns:FlowActionsService_getFlowTaskRequestIdAndStatus"/>
+            <wsdl:output message="tns:FlowActionsService_getFlowTaskRequestIdAndStatusResponse"/>
+            <wsdl:fault name="ServiceException" message="errors:ServiceException"/>
+        </wsdl:operation>
+        <wsdl:operation name="getFlowTaskRequestIdAndStatusAsync">
+            <wsdl:input message="tns:FlowActionsService_getFlowTaskRequestIdAndStatusAsync" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/getFlowTaskRequestIdAndStatusAsync"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:portType name="FlowActionsServiceResponse">
+        <wsdl:operation name="onFault">
+            <wsdl:input message="tns:FlowActionsService_onFault" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0/Fault"/>
+        </wsdl:operation>
+        <wsdl:operation name="submitFlowAsyncResponse">
+            <wsdl:input message="tns:FlowActionsService_submitFlowAsyncResponse" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/submitFlowAsyncResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getAvailableActionsAsyncResponse">
+            <wsdl:input message="tns:FlowActionsService_getAvailableActionsAsyncResponse" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/getAvailableActionsAsyncResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="performActionAsyncResponse">
+            <wsdl:input message="tns:FlowActionsService_performActionAsyncResponse" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/performActionAsyncResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getFlowTaskInstanceStatusAsyncResponse">
+            <wsdl:input message="tns:FlowActionsService_getFlowTaskInstanceStatusAsyncResponse" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/getFlowTaskInstanceStatusAsyncResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="submitAndGetFlowInstanceIdAsyncResponse">
+            <wsdl:input message="tns:FlowActionsService_submitAndGetFlowInstanceIdAsyncResponse" xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl"
+                 ns1:Action="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/submitAndGetFlowInstanceIdAsyncResponse"/>
+        </wsdl:operation>
+        <wsdl:operation name="getFlowTaskRequestIdAndStatusAsyncResponse">
+            <wsdl:input message="tns:FlowActionsService_getFlowTaskRequestIdAndStatusAsyncResponse"
+                 xmlns:ns1="http://www.w3.org/2006/05/addressing/wsdl" ns1:Action="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/getFlowTaskRequestIdAndStatusAsyncResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="FlowActionsServiceSoapHttp" type="tns:FlowActionsService">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#wss11_saml_or_username_token_with_message_protection_service_policy" wsdl:required="false"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#wsaddr_policy" wsdl:required="false"/>
+        <wsdl:operation name="getFlowTaskInstanceStatus">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/getFlowTaskInstanceStatus"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Output_Policy" wsdl:required="false"/>
+            </wsdl:output>
+            <wsdl:fault name="ServiceException">
+                <soap:fault name="ServiceException" use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Fault_Policy" wsdl:required="false"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getAvailableActions">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/getAvailableActions"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Output_Policy" wsdl:required="false"/>
+            </wsdl:output>
+            <wsdl:fault name="ServiceException">
+                <soap:fault name="ServiceException" use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Fault_Policy" wsdl:required="false"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="performAction">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/performAction"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Output_Policy" wsdl:required="false"/>
+            </wsdl:output>
+            <wsdl:fault name="ServiceException">
+                <soap:fault name="ServiceException" use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Fault_Policy" wsdl:required="false"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="submitFlow">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/submitFlow"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Output_Policy" wsdl:required="false"/>
+            </wsdl:output>
+            <wsdl:fault name="ServiceException">
+                <soap:fault name="ServiceException" use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Fault_Policy" wsdl:required="false"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="submitFlowAsync">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/submitFlowAsync"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getAvailableActionsAsync">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/getAvailableActionsAsync"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="performActionAsync">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/performActionAsync"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getFlowTaskInstanceStatusAsync">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/getFlowTaskInstanceStatusAsync"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="submitAndGetFlowInstanceId">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/submitAndGetFlowInstanceId"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Output_Policy" wsdl:required="false"/>
+            </wsdl:output>
+            <wsdl:fault name="ServiceException">
+                <soap:fault name="ServiceException" use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Fault_Policy" wsdl:required="false"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="submitAndGetFlowInstanceIdAsync">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/submitAndGetFlowInstanceIdAsync"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getFlowTaskRequestIdAndStatus">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/getFlowTaskRequestIdAndStatus"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Output_Policy" wsdl:required="false"/>
+            </wsdl:output>
+            <wsdl:fault name="ServiceException">
+                <soap:fault name="ServiceException" use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Fault_Policy" wsdl:required="false"/>
+            </wsdl:fault>
+        </wsdl:operation>
+        <wsdl:operation name="getFlowTaskRequestIdAndStatusAsync">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/getFlowTaskRequestIdAndStatusAsync"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceSoapHttpPort_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="FlowActionsServiceResponseBinding" type="tns:FlowActionsServiceResponse">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#wss11_saml_token_with_message_protection_client_policy" wsdl:required="false"/>
+        <wsdl:operation name="onFault">
+            <soap:operation soapAction="http://xmlns.oracle.com/oracleas/schema/oracle-fault-11_0/Fault"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceResponse_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="submitFlowAsyncResponse">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/submitFlowAsyncResponse"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceResponse_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getAvailableActionsAsyncResponse">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/getAvailableActionsAsyncResponse"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceResponse_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="performActionAsyncResponse">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/performActionAsyncResponse"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceResponse_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getFlowTaskInstanceStatusAsyncResponse">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/getFlowTaskInstanceStatusAsyncResponse"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceResponse_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="submitAndGetFlowInstanceIdAsyncResponse">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/submitAndGetFlowInstanceIdAsyncResponse"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceResponse_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+        </wsdl:operation>
+        <wsdl:operation name="getFlowTaskRequestIdAndStatusAsyncResponse">
+            <soap:operation soapAction="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/getFlowTaskRequestIdAndStatusAsyncResponse"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+      <wsp:PolicyReference xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" URI="#FlowActionsServiceResponse_Input_Policy" wsdl:required="false"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="FlowActionsService">
+        <wsdl:port name="FlowActionsServiceSoapHttpPort" binding="tns:FlowActionsServiceSoapHttp">
+            <soap:address location="https://eedu-dev1.hcm.em3.oraclecloud.com:443/hcmProcFlowCoreController/FlowActionsService"/>
+            <wsa:EndpointReference xmlns:wsa="http://www.w3.org/2005/08/addressing">
+                <wsa:Address xmlns:wsa="http://www.w3.org/2005/08/addressing">https://eedu-dev1.hcm.em3.oraclecloud.com:443/hcmProcFlowCoreController/FlowActionsService</wsa:Address>
+                <wsid:Identity xmlns:wsid="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+                    <dsig:KeyInfo xmlns:dsig="http://www.w3.org/2000/09/xmldsig#">
+                        <dsig:X509Data>
+                            <dsig:X509Certificate>MIIDVzCCAj+gAwIBAgIIDtrco4GREbgwDQYJKoZIhvcNAQELBQAwWTETMBEGCgmSJomT8ixkARkWA2NvbTEWMBQGCgmSJomT8ixkARkWBm9yYWNsZTEVMBMGCgmSJomT8ixkARkWBWNsb3VkMRMwEQYDVQQDEwpDbG91ZDlDQS0yMB4XDTE2MDUyMDIwMTczMFoXDTI2MDUxODIwMTczMFowWzETMBEGCgmSJomT8ixkARkWA2NvbTEWMBQGCgmSJomT8ixkARkWBm9yYWNsZTEVMBMGCgmSJomT8ixkARkWBWNsb3VkMRUwEwYDVQQDEwxGQUVuY3J5cHRpb24wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC20p4rAw6sDNB26lYNwzwSzzEFXEMRU9PE46bMbqA4/auSJX9AKaFmNLYnimPtZQ/roSNWWmvp68qv9cKTbpMonTGLJ1ppbVCRIsh2Q0y3J0hssFmi4G0l/tFaqo85yGlRpmy3/WKWz82334BTUuNB9hEHX+pQxo2aela4GRNo6Xaz4fBQDl1HWINrYJkdEBgZ3CYqf2bDM9/4ZmyAbdbUWTnCw8aevk+eb88oEwPyVXG1CJfaxYolZymQ5VHkzSEzNNTM4HtMSF6asg/4s7zWianeGhAqP1daEN10RxUUQtbmGAo1a4ohndM8l/sq2OkKwCgo8KqgvHRJKz5mjt/RAgMBAAGjITAfMB0GA1UdDgQWBBR676ji66R+SK3qW+GJ2c+UVhgeUzANBgkqhkiG9w0BAQsFAAOCAQEAVL5JcJ2LFnHHJQQFOsReYAyE+Fr+YRd9aDmGgq934YIV7LOH0mWm0xf6AAHJ9/SiRHV14lwCxViGAOVOWvuxdJAifg1lC7Pbj0huE9FsQ70A0kC7S68okD7qXs/FsEW5NyCiDWtL+t0ifbc35raDMRPXfIo5rdq9HHniJf4eHqMXIcp8eVn6DLbQTLk697v6H5rTO4c8Ubyw0FD134G3DnM7fsqIBTGAr3XTk503ynU6guGioLnA1QIRqVVDZR7YUO+HTlH9nUaur4gM7TIIZeg4x/zvVo1j/y7989hHctuqfbFHYOnjFfUrUHmuIfdTfP1eT7rXy8ZGeKFSj00apA==</dsig:X509Certificate>
+                            <dsig:X509IssuerSerial>
+                                <dsig:X509IssuerName>CN=Cloud9CA-2, DC=cloud, DC=oracle, DC=com</dsig:X509IssuerName>
+                                <dsig:X509SerialNumber>1070410456265462200</dsig:X509SerialNumber>
+                            </dsig:X509IssuerSerial>
+                            <dsig:X509SubjectName>CN=FAEncryption, DC=cloud, DC=oracle, DC=com</dsig:X509SubjectName>
+                            <dsig:X509SKI>eu+o4uukfkit6lvhidnPlFYYHlM=</dsig:X509SKI>
+                            <dsig:X509Certificate>MIIDazCCAlOgAwIBAgIIFuDquJkhEWkwDQYJKoZIhvcNAQELBQAwWTETMBEGCgmSJomT8ixkARkWA2NvbTEWMBQGCgmSJomT8ixkARkWBm9yYWNsZTEVMBMGCgmSJomT8ixkARkWBWNsb3VkMRMwEQYDVQQDEwpDbG91ZDlDQS0yMCAXDTE2MDUyMDIwMTcyOVoYDzIxMTYwNDI2MjAxNzI5WjBZMRMwEQYKCZImiZPyLGQBGRYDY29tMRYwFAYKCZImiZPyLGQBGRYGb3JhY2xlMRUwEwYKCZImiZPyLGQBGRYFY2xvdWQxEzARBgNVBAMTCkNsb3VkOUNBLTIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDLwdEwZmYCP/7k6wVHIi/WNclg10PshbgYoDyL2zmXrFYpExx9SUYWOHarFozprhXUtjdptZusYqhxgI247mScBU+kYSsC7nPTNLZwIWO4NXuNh8bMDeSKFmJ3muDa+5wxkp7oVIFGknmZwVm533zj4YWUlccLGew8O1DmhJSAyJuUbdScOBjZYSba9/IALFs0UeuwAKh4sQWZDibxkv2MboJnAU4oxel9csH1Njxqp1QPkSo+9qhX0ZQwHjes6MO9QEanQUaQACzf4TSgXXCO1Nf28OjkfNQ5kMSeSwsdnbmElS+bR9cqRCPiFmkaxfkWeC7IUOdVM/1W2884zeXtAgMBAAGjNTAzMBIGA1UdEwEB/wQIMAYBAf8CAQAwHQYDVR0OBBYEFPY3WD1TRs0Io1A834HjZSP3Rqg1MA0GCSqGSIb3DQEBCwUAA4IBAQBDKp5BqYCnloKLbMZcrb/3o75Yi2HjHw/91wHEULdx47EogA5/ruNO+K63aisbEi1wPPlsF/IL0B+qrcarneQ9J2ioHkpHIIl42l7p7DOY/XiboOPeNcE9EaeEky88k22twnH7KEybYMULuunkHBJ35RzUj9YACQ7IZksAfP4TF3s+ohNzSXqOZ6jlQoZBkXUpcY4+PMcp8Mn/iZ843+2Rn2e/rk0sYSr2twXwxN6k8derBor5ocCazp/k1qelQJFSnVA6OWzfoGcLG7xAqzge+VaKlu0FMWMNQXh3Vz6GEowqBchP5K5i5UbW8+1HFOjyMomVAyZR77EL21YV8vcy</dsig:X509Certificate>
+                        </dsig:X509Data>
+                    </dsig:KeyInfo>
+                </wsid:Identity>
+            </wsa:EndpointReference>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dvm name="Tracking" xmlns="http://xmlns.oracle.com/dvm">
+<description/>
+<columns>
+<column name="trackingQueryID"/>
+<column name="isTrackingRequired"/>
+</columns>
+<rows>
+<row>
+<cell>TestService_NA_NA</cell>
+<cell>Y</cell>
+</row>
+</rows>
+</dvm>

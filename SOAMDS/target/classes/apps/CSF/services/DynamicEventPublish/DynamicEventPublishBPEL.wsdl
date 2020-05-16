@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://xmlns.oracle.com/ReSubmission/DynamicEventPublish/DynamicEventPublishBPEL" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" name="DynamicEventPublishBPEL" targetNamespace="http://xmlns.oracle.com/ReSubmission/DynamicEventPublish/DynamicEventPublishBPEL">
+<wsdl:types>
+<schema xmlns="http://www.w3.org/2001/XMLSchema">
+<import namespace="http://xmlns.oracle.com/ReSubmission/DynamicEventPublish/DynamicEventPublishBPEL" schemaLocation="DynamicEventPublishBPEL.xsd"/>
+</schema>
+</wsdl:types>
+<wsdl:message name="DynamicEventPublishBPELRequestMessage">
+<wsdl:part name="payload" element="client:process"/>
+</wsdl:message>
+<wsdl:message name="DynamicEventPublishBPELResponseMessage">
+<wsdl:part name="payload" element="client:processResponse"/>
+</wsdl:message>
+<wsdl:portType name="DynamicEventPublishBPEL">
+<wsdl:operation name="process">
+<wsdl:input message="client:DynamicEventPublishBPELRequestMessage"/>
+<wsdl:output message="client:DynamicEventPublishBPELResponseMessage"/>
+</wsdl:operation>
+</wsdl:portType>
+<plnk:partnerLinkType name="DynamicEventPublishBPEL">
+<plnk:role name="DynamicEventPublishBPELProvider">
+<plnk:portType name="client:DynamicEventPublishBPEL"/>
+</plnk:role>
+</plnk:partnerLinkType>
+</wsdl:definitions>

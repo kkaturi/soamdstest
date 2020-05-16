@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/types/"
+     xmlns:ns0="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowControllerService/"
+     xmlns:ns1="http://xmlns.oracle.com/adf/svc/types/" xmlns:tns="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowActionsService/types/"
+     xmlns="http://www.w3.org/2001/XMLSchema">
+    <import namespace="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowControllerService/"
+         schemaLocation="FlowParameterNameValues.xsd"/>
+    <import namespace="http://xmlns.oracle.com/adf/svc/types/" schemaLocation="BC4JService.xsd"/>     
+    <import namespace="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowControllerService/" schemaLocation="EssIdAndStatus.xsd"/>
+    <import namespace="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowControllerService/"
+         schemaLocation="FlowInteractionsNameValue.xsd"/>
+    <import namespace="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowControllerService/"
+         schemaLocation="FlowActionList.xsd"/>
+    <element name="getFlowTaskInstanceStatus">
+        <complexType>
+            <sequence>
+                <element name="flowInstanceName" type="string"/>
+                <element name="flowTaskInstanceName" type="string"/>
+                <element name="legislativeDataGroupName" minOccurs="0" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="getFlowTaskInstanceStatusResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="getAvailableActions">
+        <complexType>
+            <sequence>
+                <element name="flowInstanceName" type="string"/>
+                <element name="flowTaskInstanceName" type="string"/>
+                <element name="legislativeDataGroupName" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="getAvailableActionsResponse">
+        <complexType>
+            <sequence>
+                <element maxOccurs="unbounded" minOccurs="0" name="result" type="ns0:FlowActionList"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="performAction">
+        <complexType>
+            <sequence>
+                <element name="flowInstanceName" type="string"/>
+                <element name="flowTaskInstanceName" type="string"/>
+                <element name="actionName" type="string"/>
+                <element name="legislativeDataGroupName" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="performActionResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="boolean"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="submitFlow">
+        <complexType>
+            <sequence>
+                <element name="flowName" type="string"/>
+                <element maxOccurs="unbounded" minOccurs="0" name="parameterValues" type="ns0:FlowParameterNameValues"/>
+                <element name="flowInstanceName" type="string"/>
+                <element name="legislativeDataGroupName" minOccurs="0" type="string"/>
+                <element maxOccurs="unbounded" minOccurs="0" name="crossFlowInteractionList" type="ns0:FlowInteractionsNameValue"/>
+                <element name="scheduleFormulaTypeName" minOccurs="0" type="string"/>
+                <element name="scheduleFormulaName" minOccurs="0" type="string"/>
+                <element name="scheduledDate" minOccurs="0" type="ns1:dateTime-Timestamp"/>
+                <element name="recurringFlag" type="boolean"/>
+                <element name="endDate" minOccurs="0" type="ns1:dateTime-Timestamp"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="submitFlowResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="boolean"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="submitFlowAsync">
+        <complexType>
+            <sequence>
+                <element name="flowName" type="string"/>
+                <element maxOccurs="unbounded" minOccurs="0" name="parameterValues" type="ns0:FlowParameterNameValues"/>
+                <element name="flowInstanceName" type="string"/>
+                <element name="legislativeDataGroupName" type="string"/>
+                <element maxOccurs="unbounded" minOccurs="0" name="crossFlowInteractionList" type="ns0:FlowInteractionsNameValue"/>
+                <element name="scheduleFormulaTypeName" type="string"/>
+                <element name="scheduleFormulaName" type="string"/>
+                <element name="scheduledDate" type="ns1:dateTime-Timestamp"/>
+                <element name="recurringFlag" type="boolean"/>
+                <element name="endDate" type="ns1:dateTime-Timestamp"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="submitFlowAsyncResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="boolean"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="getAvailableActionsAsync">
+        <complexType>
+            <sequence>
+                <element name="flowInstanceName" type="string"/>
+                <element name="flowTaskInstanceName" type="string"/>
+                <element name="legislativeDataGroupName" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="getAvailableActionsAsyncResponse">
+        <complexType>
+            <sequence>
+                <element maxOccurs="unbounded" minOccurs="0" name="result" type="ns0:FlowActionList"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="performActionAsync">
+        <complexType>
+            <sequence>
+                <element name="flowInstanceName" type="string"/>
+                <element name="flowTaskInstanceName" type="string"/>
+                <element name="actionName" type="string"/>
+                <element name="legislativeDataGroupName" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="performActionAsyncResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="boolean"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="getFlowTaskInstanceStatusAsync">
+        <complexType>
+            <sequence>
+                <element name="flowInstanceName" type="string"/>
+                <element name="flowTaskInstanceName" type="string"/>
+                <element name="legislativeDataGroupName" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="getFlowTaskInstanceStatusAsyncResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="submitAndGetFlowInstanceId">
+        <complexType>
+            <sequence>
+                <element name="flowName" type="string"/>
+                <element maxOccurs="unbounded" minOccurs="0" name="parameterValues" type="ns0:FlowParameterNameValues"/>
+                <element name="flowInstanceName" type="string"/>
+                <element name="legislativeDataGroupName" type="string"/>
+                <element maxOccurs="unbounded" minOccurs="0" name="crossFlowInteractionList" type="ns0:FlowInteractionsNameValue"/>
+                <element name="scheduleFormulaTypeName" type="string"/>
+                <element name="scheduleFormulaName" type="string"/>
+                <element name="scheduledDate" type="ns1:dateTime-Timestamp"/>
+                <element name="recurringFlag" type="boolean"/>
+                <element name="endDate" type="ns1:dateTime-Timestamp"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="submitAndGetFlowInstanceIdResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="long"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="submitAndGetFlowInstanceIdAsync">
+        <complexType>
+            <sequence>
+                <element name="flowName" type="string"/>
+                <element maxOccurs="unbounded" minOccurs="0" name="parameterValues" type="ns0:FlowParameterNameValues"/>
+                <element name="flowInstanceName" type="string"/>
+                <element name="legislativeDataGroupName" type="string"/>
+                <element maxOccurs="unbounded" minOccurs="0" name="crossFlowInteractionList" type="ns0:FlowInteractionsNameValue"/>
+                <element name="scheduleFormulaTypeName" type="string"/>
+                <element name="scheduleFormulaName" type="string"/>
+                <element name="scheduledDate" type="ns1:dateTime-Timestamp"/>
+                <element name="recurringFlag" type="boolean"/>
+                <element name="endDate" type="ns1:dateTime-Timestamp"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="submitAndGetFlowInstanceIdAsyncResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="long"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="getFlowTaskRequestIdAndStatus">
+        <complexType>
+            <sequence>
+                <element name="flowInstanceName" type="string"/>
+                <element name="flowTaskInstanceName" type="string"/>
+                <element name="legislativeDataGroupName" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="getFlowTaskRequestIdAndStatusResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="ns0:EssIdAndStatus"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="getFlowTaskRequestIdAndStatusAsync">
+        <complexType>
+            <sequence>
+                <element name="flowInstanceName" type="string"/>
+                <element name="flowTaskInstanceName" type="string"/>
+                <element name="legislativeDataGroupName" type="string"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="getFlowTaskRequestIdAndStatusAsyncResponse">
+        <complexType>
+            <sequence>
+                <element name="result" type="ns0:EssIdAndStatus"/>
+            </sequence>
+        </complexType>
+    </element>
+</schema>

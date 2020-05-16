@@ -1,0 +1,30 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowControllerService/"
+     sdoJava:package="oracle.apps.hcm.processFlows.core.flowControllerService" xmlns:sdoJava="commonj.sdo/java"
+     xmlns="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowControllerService/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:annotation>
+        <xsd:documentation xmlns:oer="http://xmlns.oracle.com/oer">
+            <name>Processing Status</name>
+            <description>Ess request id and processing status</description>
+            <oer:attributes>
+                <oer:attribute description="Status of the ess request id" name="Status"/>
+                <oer:attribute description="Ess request id" name="ProcessId"/>
+            </oer:attributes>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:import namespace="commonj.sdo/java" schemaLocation="sdoJava.xsd"/>
+    <xsd:complexType name="EssIdAndStatus">
+        <xsd:annotation>
+            <xsd:appinfo source="http://xmlns.oracle.com/adf/svc/metadata/">
+                <key xmlns="http://xmlns.oracle.com/adf/svc/metadata/">
+                    <attribute>ProcessId</attribute>
+                </key>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="Status" nillable="true" type="xsd:string"/>
+            <xsd:element minOccurs="0" name="ProcessId" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="essIdAndStatus" type="EssIdAndStatus"/>
+</xsd:schema>

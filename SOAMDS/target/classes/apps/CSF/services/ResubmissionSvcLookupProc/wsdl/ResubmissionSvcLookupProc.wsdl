@@ -1,0 +1,56 @@
+<wsdl:definitions
+     name="ResubmissionSvcLookupProc"
+     targetNamespace="http://xmlns.oracle.com/ReSubmission/ResubmissionSvcLookupProj/ResubmissionSvcLookupProc"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:client="http://xmlns.oracle.com/ReSubmission/ResubmissionSvcLookupProj/ResubmissionSvcLookupProc"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <plnk:partnerLinkType name="ResubmissionSvcLookupProc">
+        <plnk:role name="ResubmissionSvcLookupProcRequester">
+            <plnk:portType name="client:ResubmissionSvcLookupProcCallback"/>
+        </plnk:role>
+        <plnk:role name="ResubmissionSvcLookupProcProvider">
+            <plnk:portType name="client:ResubmissionSvcLookupProc"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:client="http://xmlns.oracle.com/ReSubmission/ResubmissionSvcLookupProj/ResubmissionSvcLookupProc"
+             xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/">
+            <import namespace="http://xmlns.oracle.com/ReSubmission/ResubmissionSvcLookupProj/ResubmissionSvcLookupProc"
+                 schemaLocation="oramds:/apps/CSF/services/ResubmissionSvcLookupProc/xsd/ResubmissionSvcLookupProc.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="ResubmissionSvcLookupProcRequestMessage">
+        <wsdl:part name="payload" element="client:process"/>
+    </wsdl:message>
+    <wsdl:message name="ResubmissionSvcLookupProcResponseMessage">
+        <wsdl:part name="payload" element="client:processResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="ResubmissionSvcLookupProc">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:ResubmissionSvcLookupProcRequestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:portType name="ResubmissionSvcLookupProcCallback">
+        <wsdl:operation name="processResponse">
+            <wsdl:input message="client:ResubmissionSvcLookupProcResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="ResubmissionSvcLookupProcBinding" type="client:ResubmissionSvcLookupProc">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="resubmissionsvclookupproc_client_ep">
+        <wsdl:port name="ResubmissionSvcLookupProc_pt" binding="client:ResubmissionSvcLookupProcBinding">
+            <soap:address location="http://SOADEVMT_server_1:8001/soa-infra/services/CommonServices/ResubmissionSvcLookupProj/resubmissionsvclookupproc_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
+
