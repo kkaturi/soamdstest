@@ -1,0 +1,71 @@
+<wsdl:definitions
+     name="CSFResubmissionBatchProc"
+     targetNamespace="http://xmlns.oracle.com/AFPOCSF/CSFResubmissionBatchProj/CSFResubmissionBatchProc"
+     xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+     xmlns:cor="http://xmlns.oracle.com/AFPOCSF/CSFResubmissionBatchProj/CSFResubmissionBatchProc/correlationset"
+     xmlns:client="http://xmlns.oracle.com/AFPOCSF/CSFResubmissionBatchProj/CSFResubmissionBatchProc"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    >
+    <plnk:partnerLinkType name="CSFResubmissionBatchProc">
+        <plnk:role name="CSFResubmissionBatchProcProvider">
+            <plnk:portType name="client:CSFResubmissionBatchProc"/>
+        </plnk:role>
+        <plnk:role name="CSFResubmissionBatchProcRequester">
+            <plnk:portType name="client:CSFResubmissionBatchProcCallback"/>
+        </plnk:role>
+    </plnk:partnerLinkType>
+    <bpws:propertyAlias propertyName="cor:corrDate" messageType="client:CSFResubmissionBatchProcRequestMessage"
+         part="payload" query="/client:process/client:corrDate"/>
+    <bpws:propertyAlias propertyName="cor:corrHour" messageType="client:CSFResubmissionBatchProcRequestMessage"
+         part="payload" query="/client:process/client:corrHour"/>
+    <bpws:propertyAlias xmlns:ns1="http://xmlns.oracle.com/ReSubmission/ResubmissionSvcLookupProj/ResubmissionSvcLookupProc"
+         propertyName="cor:corrLogId" messageType="ns1:ResubmissionSvcLookupProcRequestMessage"
+         part="payload" query="/ns1:process/ns1:LogId"/>
+    <bpws:propertyAlias xmlns:ns1="http://xmlns.oracle.com/ReSubmission/ResubmissionSvcLookupProj/ResubmissionSvcLookupProc"
+         propertyName="cor:corrLogId" messageType="ns1:ResubmissionSvcLookupProcResponseMessage"
+         part="payload" query="/ns1:processResponse/ns1:LogId"/>
+    <wsdl:import namespace="http://xmlns.oracle.com/AFPOCSF/CSFResubmissionBatchProj/CSFResubmissionBatchProc/correlationset"
+         location="oramds:/apps/CSF/services/CSFResubmissionBatchProc/wsdl/CSFResubmissionBatchProc_properties.wsdl"/>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:plnk="http://schemas.xmlsoap.org/ws/2003/05/partner-link/"
+             xmlns:client="http://xmlns.oracle.com/AFPOCSF/CSFResubmissionBatchProj/CSFResubmissionBatchProc"
+             xmlns:cor="http://xmlns.oracle.com/AFPOCSF/CSFResubmissionBatchProj/CSFResubmissionBatchProc/correlationset"
+             xmlns:bpws="http://schemas.xmlsoap.org/ws/2003/03/business-process/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+            <import namespace="http://xmlns.oracle.com/AFPOCSF/CSFResubmissionBatchProj/CSFResubmissionBatchProc"
+                 schemaLocation="oramds:/apps/CSF/services/CSFResubmissionBatchProc/xsd/CSFResubmissionBatchProc.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="CSFResubmissionBatchProcRequestMessage">
+        <wsdl:part name="payload" element="client:process"/>
+    </wsdl:message>
+    <wsdl:message name="CSFResubmissionBatchProcResponseMessage">
+        <wsdl:part name="payload" element="client:processResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="CSFResubmissionBatchProc">
+        <wsdl:operation name="process">
+            <wsdl:input message="client:CSFResubmissionBatchProcRequestMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:portType name="CSFResubmissionBatchProcCallback">
+        <wsdl:operation name="processResponse">
+            <wsdl:input message="client:CSFResubmissionBatchProcResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CSFResubmissionBatchProcBinding" type="client:CSFResubmissionBatchProc">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="process">
+            <soap:operation style="document" soapAction="process"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="csfresubmissionbatchproc_client_ep">
+        <wsdl:port name="CSFResubmissionBatchProc_pt" binding="client:CSFResubmissionBatchProcBinding">
+            <soap:address location="http://SOADEVMT_server_1:8001/soa-infra/services/CommonServices/CSFResubmissionBatchProj/csfresubmissionbatchproc_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
+

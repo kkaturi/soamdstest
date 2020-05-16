@@ -1,0 +1,32 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<xsd:schema elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/apps/hcm/processFlows/core/flowControllerService/"
+     sdoJava:package="oracle.apps.hcm.processFlows.core.flowControllerService" xmlns:sdoJava="commonj.sdo/java"
+     xmlns="http://xmlns.oracle.com/oracle/apps/hcm/processFlows/core/flowControllerService/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:annotation>
+        <xsd:documentation xmlns:oer="http://xmlns.oracle.com/oer">
+            <name>Task Action</name>
+            <description>The type of operation which is performed by a task, such as
+                create, read, update or delete.</description>
+            <oer:attributes>
+                <oer:attribute description="Action id" name="ActionId"/>
+                <oer:attribute description="Action Value" name="ActionValue"/>
+            </oer:attributes>
+        </xsd:documentation>
+    </xsd:annotation>
+    <xsd:import namespace="commonj.sdo/java" schemaLocation="sdoJava.xsd"/>
+    <xsd:complexType name="FlowActionList">
+        <xsd:annotation>
+            <xsd:appinfo source="http://xmlns.oracle.com/adf/svc/metadata/">
+                <key xmlns="http://xmlns.oracle.com/adf/svc/metadata/">
+                    <attribute>ActionId</attribute>
+                    <attribute>ActionValue</attribute>
+                </key>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element minOccurs="0" name="ActionId" nillable="true" type="xsd:long"/>
+            <xsd:element minOccurs="0" name="ActionValue" nillable="true" type="xsd:string"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

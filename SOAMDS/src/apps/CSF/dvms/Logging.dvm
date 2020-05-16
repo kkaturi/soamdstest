@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dvm name="Logging" xmlns="http://xmlns.oracle.com/dvm">
+<description/>
+<columns>
+<column name="loggingQueryID"/>
+<column name="isLoggingRequired"/>
+<column name="loggingStorageType"/>
+<column name="loggingFileName"/>
+<column name="loggingFileLocation"/>
+</columns>
+<rows>
+<row>
+<cell>TestService_NA_NA</cell>
+<cell>Y</cell>
+<cell>ALL</cell>
+<cell/>
+<cell/>
+</row>
+</rows>
+</dvm>

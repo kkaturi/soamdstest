@@ -1,0 +1,354 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/NotificationDetails" xmlns="http://xmlns.oracle.com/NotificationDetails" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xs:element name="notificationDetails">
+<xs:annotation id="NotificationDetails">
+<xs:documentation>
+                Contains all the elements related to the Notification.
+            </xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:sequence>
+<xs:element ref="header" minOccurs="1" maxOccurs="1">
+<xs:annotation id="NotificationHeaders">
+<xs:documentation>
+                            Notification headers.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element ref="notificationMessage" minOccurs="0" maxOccurs="1">
+<xs:annotation id="NotificatioMessage">
+<xs:documentation>
+                            Contains all the elements related to the
+                            Notification.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="header">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="serviceName" type="xs:string" minOccurs="1" maxOccurs="1">
+<xs:annotation id="ServiceName">
+<xs:documentation>
+                            Name of the Service where the Event has occurred
+                            e.g. CreditRatingService
+                            Also used by the CSF to fetch request related data
+                            from the database (if value of 'isDetailsRequired'
+                            element is 'Y' and 'queryDetailsBy' value is '1' or 
+                            '2' or '3' or '4')
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="callingComponent" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="CallingComponent">
+<xs:documentation>
+                            Component which is calling the Common Event Handler
+                            e.g. Composite, OSB, Custom Java Application.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="isDetailsRequired" maxOccurs="1" minOccurs="0">
+<xs:annotation id="IsDetailsRequiredComplex">
+<xs:documentation>
+                            Contains the elements which inform the CSF that the
+                            payload has the complete information about the
+                            Actions to be performed or it needs to be fetched
+                            from the Database.
+                        </xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:sequence>
+<xs:element name="isDetailsRequired" type="xs:string" default="N" maxOccurs="1" minOccurs="1">
+<xs:annotation id="IsDetailsRequired">
+<xs:documentation>
+                                        Element inform the CSF that the payload
+                                        has the complete information about the
+                                        Actions to be performed or it needs to
+                                        be fetched from the Database. It has two
+                                        possible values. 'Y' which informs that
+                                        the data need to be fetched from
+                                        Database based on Service Name, Error
+                                        Code or Special Query Id. 'N' implies
+                                        that the all the required data for the
+                                        processing is present in the request
+                                        payload. If the element is empty
+                                        considered as 'N'.
+                                    </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="queryDetailsBy" type="xs:string" maxOccurs="1" minOccurs="1">
+<xs:annotation id="queryDetailsBy">
+<xs:documentation>
+                                        Element inform the Event Handling
+                                        framework by which columns data need to
+                                        fetch from database.
+                                        It has 7 possible values,
+                                        '1' : Query by ServiceName
+                                        '2' : Query by ServiceName and ErrorCode
+                                        '3' : Query by ServiceName and ErrorCode
+                                        and SpQueryId
+                                        '4' : Query by Service Name and SpQueryId
+                                        '5' : Query by ErrorCode and SpQueryId
+                                        '6' : Query by ErrorCode
+                                        '7' : Query by SpQueryId
+                                    </xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="GUID" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="GUID">
+<xs:documentation>
+                            Global unique ID used across the complete life cycle
+                            of the message over different containers. Is used
+                            for End to End visibility
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="notificationMessage">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="eventType" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="EventType">
+<xs:documentation>
+                            Type of the Event.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="eventId" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="EventId">
+<xs:documentation>
+                            Id of the Event.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="instanceId" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="InstanceId">
+<xs:documentation>
+                            Instance id of the Service for which message to be
+                            logged
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="imBody" type="xs:string" default="No Body" maxOccurs="1" minOccurs="0">
+<xs:annotation id="ImBody">
+<xs:documentation>
+                            This will contain the Message to be sent as an
+                            Instant Message through a messenger.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="imTo" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="ImTo">
+<xs:documentation>
+                            The IM id of the person to whom an instant message
+                            has to be sent to.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="voiceMessage" type="xs:string" default="No Voice message" maxOccurs="1" minOccurs="0">
+<xs:annotation id="VoiceMessage">
+<xs:documentation>
+                            This will contain the Voice Message to be sent
+                            through a messenger.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="smsSubject" type="xs:string" default="No Subject" maxOccurs="1" minOccurs="0">
+<xs:annotation id="SMSSubject">
+<xs:documentation>
+                            The subject of sms to be sent.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="smsTo" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="smsTo">
+<xs:documentation>
+                            Mobile number to send the SMS.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="smsFrom" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="SMSFrom">
+<xs:documentation>
+                            The mobile number from where the SMS will be sent.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="smsBody" type="xs:string" default="No Body" maxOccurs="1" minOccurs="0">
+<xs:annotation id="SMSBody">
+<xs:documentation>
+                            The contents of the sms to be sent.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="emailSubject" type="xs:string" default="No Subject" maxOccurs="1" minOccurs="0">
+<xs:annotation id="EmailSubject">
+<xs:documentation>
+                            The subject of the email to be sent.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="emailBody" type="xs:string" default="No Body" maxOccurs="1" minOccurs="0">
+<xs:annotation id="EmailBody">
+<xs:documentation>
+                            The body of the email to be sent.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="emailID" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="EmailId">
+<xs:documentation>
+                            Email address of user. To send the notification mail.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="isEmail" type="xs:string" default="N" maxOccurs="1" minOccurs="0">
+<xs:annotation id="IsEmail">
+<xs:documentation>
+                            Is Email needs to be sent as a part of Notification.
+                            Value will be either Y or N
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="isEmailPeriodic" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="IsEmailPeriodic">
+<xs:documentation>
+                            Is Email needs to be send periodically, that is by
+                            combining similar kind of messages and sending them
+                            as one Email.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="isSMS" type="xs:string" default="N" maxOccurs="1" minOccurs="0">
+<xs:annotation id="IsSMS">
+<xs:documentation>
+                            Is SMS needs to be sent as a part of Notification.
+                            Value will be either Y or N
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="isIM" type="xs:string" default="N" maxOccurs="1" minOccurs="0">
+<xs:annotation id="IsIM">
+<xs:documentation>
+                            Is IM needs to be sent as a part of Notification.
+                            Value will be either Y or N
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="isVoice" type="xs:string" default="N" maxOccurs="1" minOccurs="0">
+<xs:annotation id="IsVoice">
+<xs:documentation>
+                            Is Voice message needs to be sent as a part of
+                            Notification. Value will be either Y or N
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="isHumanIntervention" type="xs:string" default="N" maxOccurs="1" minOccurs="0">
+<xs:annotation id="IsHumanIntervention">
+<xs:documentation>
+                            Is Human Task needs to be created as a part of
+                            Notification. Value will be either Y or N
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="payload" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="Payload">
+<xs:documentation>
+                            It is the Payload of the Service which is calling
+                            the Framework and need to persist the Payload for
+                            further processing.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="humanWorkflowGroups" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="HumanWorkflowGroups">
+<xs:documentation>
+                            Groups or the users to be notified in case of a
+                            Human task. In case of multiple values, the
+                            information can be passed as Comma separated.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="humanTaskDetails" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="HumanTaskDetails">
+<xs:documentation>
+                            Details for the Action to be performed.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="isNotificationRequired" type="xs:string" default="N" maxOccurs="1" minOccurs="0">
+<xs:annotation id="IsNotification">
+<xs:documentation>
+                            Is Notification required
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="spQueryId" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="SpQueryDetails">
+<xs:documentation>
+                            Used by the CSF to fetch request related data from
+                            the database (if value of 'isDetailsRequired'
+                            element is 'Y' and 'queryDetailsBy' value is '3' or 
+                            '4' or '5' or '7')
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="errorCode" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="ErrorCode">
+<xs:documentation>
+                            Error code generated by the container.
+                            Also used by the CSF to fetch request related data
+                            from the database (if value of 'isDetailsRequired'
+                            element is 'Y' and 'queryDetailsBy' value is '2' or 
+                            '3' or '5' or '6')
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="isError" type="xs:string" default="N" maxOccurs="1" minOccurs="0">
+<xs:annotation id="IsError">
+<xs:documentation>
+                            Informs that the current message is an error message
+                            or not.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="notificationSummary" type="xs:string" default="No Summary" maxOccurs="1" minOccurs="0">
+<xs:annotation id="NotificationSummary">
+<xs:documentation>
+                            Summary of the notification message.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="notificationDetails" type="xs:string" default="No Details" maxOccurs="1" minOccurs="0">
+<xs:annotation>
+<xs:documentation>
+                            What details will be send to user as a notification
+                            will store in this variable.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="timestamp" type="xs:dateTime" maxOccurs="1" minOccurs="0">
+<xs:annotation id="Timestamp">
+<xs:documentation>
+                            Timestamp at the time of error generation.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="isPNGeneric" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="IsPNGeneric">
+<xs:documentation>
+                            Inform that current message need to be sent as a part of general Priodic Notification or not.
+                        </xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified"
+	targetNamespace="http://xmlns.oracle.com/AFPOCSF/CSFResubmissionBatchProj/CSFResubmissionBatchProc"
+        xmlns:tns="http://xmlns.oracle.com/AFPOCSF/CSFResubmissionBatchProj/CSFResubmissionBatchProc"
+	xmlns="http://www.w3.org/2001/XMLSchema">
+	<element name="process">
+		<complexType>
+			<sequence>
+				<element name="corrDate" type="string"/>
+    <element name="corrHour" type="string"/>
+    <element name="corrProcessEndFlag" type="boolean"/>
+   </sequence>
+		</complexType>
+	</element>
+	<element name="processResponse">
+		<complexType>
+			<sequence>
+				<element name="result" type="string"/>
+			</sequence>
+		</complexType>
+	</element>
+ <complexType name="ResubmissionResult">
+  <sequence>
+   <element name="LogId" type="decimal"/>
+   <element name="Result" type="string"/>
+   <element name="FaultDetails">
+    <complexType>
+     <sequence>
+      <element name="Code" type="string"/>
+      <element name="Description" type="string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </sequence>
+ </complexType>
+ <element name="ResubmissionBatchResult">
+  <complexType>
+   <sequence>
+    <element name="ResubmissionResult" type="tns:ResubmissionResult"
+             maxOccurs="unbounded"/>
+   </sequence>
+  </complexType>
+ </element>
+</schema>

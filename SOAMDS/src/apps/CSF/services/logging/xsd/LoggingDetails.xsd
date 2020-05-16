@@ -1,0 +1,219 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://xmlns.oracle.com/LoggingDetails" xmlns="http://xmlns.oracle.com/LoggingDetails" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<xs:element name="loggerMessage">
+<xs:annotation id="loggerMessage">
+<xs:documentation>
+    Contains all the elements related to the Logging.
+   </xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:sequence>
+<xs:element ref="header" minOccurs="0" maxOccurs="1">
+<xs:annotation id="Loggingheaders.">
+<xs:documentation>
+       header
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element ref="logMessage" minOccurs="1" maxOccurs="1">
+<xs:annotation id="LogMessage">
+<xs:documentation>
+       Contains all the elements related to the Logging details.
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="header">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="storageType" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="StorageType">
+<xs:documentation>
+       Destination where logs are to be stored.
+       Has 3 possible values,
+       FILE to save logs in file system.
+       DB to save the logs in Database table.
+       ALL to save the logs at both in File system as well as Database.
+       Default Storage is DB, which can be modified at runtime from EM console
+       by modifying 'STORAGE_TYPE_DEFAULT' preference value.
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="isDetailsRequired" maxOccurs="1" minOccurs="0">
+<xs:annotation id="IsDetailsRequiredComplex">
+<xs:documentation>
+       Element inform the CSF that the payload has the complete information
+       about the Actions to be performed or it needs to be fetched from the
+       Database. It has two possible values. 'Y' which informs that the data
+       need to be fetched from Database based on Service Name, Error Code or
+       Special Query Id. 'N' implies that the all the required data for the
+       processing is present in the request payload.If the element is empty
+       considered as 'N'.
+      </xs:documentation>
+</xs:annotation>
+<xs:complexType>
+<xs:sequence>
+<xs:element name="isDetailsRequired" type="xs:string" default="N" maxOccurs="1" minOccurs="1">
+<xs:annotation id="IsDetailsRequired">
+<xs:documentation>
+          Element inform the CSF that the payload has the complete information
+          about the Actions to be performed or it needs to be fetched from the
+          Database. It has two possible values. 'Y' which informs that the data
+          need to be fetched from Database based on Service Name, Error Code or
+          Special Query Id. 'N' implies that the all the required data for the
+          processing is present in the request payload.If the element is empty
+          considered as 'N'.
+         </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="queryDetailsBy" type="xs:string" maxOccurs="1" minOccurs="1">
+<xs:annotation id="QueryDetailsBy">
+<xs:documentation>
+          Element inform the Event Handling framework by which columns data need
+          to fetch from database.
+          It has 7 possible values,
+          '1' : Query by ServiceName
+          '2' : Query by ServiceName and ErrorCode
+          '3' : Query by ServiceName and ErrorCode and SpQueryId
+          '4' : Query by Service Name and SpQueryId
+          '5' : Query by ErrorCode and SpQueryId
+          '6' : Query by ErrorCode
+          '7' : Query by SpQueryId
+         </xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+<xs:element name="logMessage">
+<xs:complexType>
+<xs:sequence>
+<xs:element name="GUID" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="GUID">
+<xs:documentation>
+       Is used for End to End visibility
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="serviceName" type="xs:string" minOccurs="1" maxOccurs="1">
+<xs:annotation id="ServiceName">
+<xs:documentation>
+       Name of the Service where the Event has occurred e.g. CreditRatingService
+       Also used by the CSF to fetch request related data from the database (if
+       value of 'isDetailsRequired' element is 'Y' and 'queryDetailsBy' value is
+       '1' or  '2' or '3' or '4')
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="callingComponent" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="CallingComponent">
+<xs:documentation>
+       Component which is calling the CSF e.g. Composite, OSB, Custom Java
+       Application.
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="instanceId" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="InstanceId">
+<xs:documentation>
+       Instance id of the Component of Service for which message to be logged.
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="eventId" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="EventId">
+<xs:documentation>
+       Unique identifier assigned to the Event.
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="eventType" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="EventType">
+<xs:documentation>
+       Defined type of the Event, based on which the event can be published or
+       subscribed.
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="logSummary" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="LogSummary">
+<xs:documentation>
+       Summary of the log message.
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="logDetails" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="LogDetails">
+<xs:documentation>
+       Details of the log message
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="payload" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="Payload">
+<xs:documentation>
+       Payload of the Service for which message to be logged.
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="fileName" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="FileName">
+<xs:documentation>
+       Name of the file where logs are to be added.
+       Default is &lt;loggerMessage.logMessage.serviceName>.log
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="fileLocation" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="FileLocation">
+<xs:documentation>
+       Location where log file to be placed.
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="isError" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="IsError">
+<xs:documentation>
+       Logged message is an Error message.
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="errorCode" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="ErrorCode">
+<xs:documentation>
+       Error Code
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="timeStamp" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="Timestamp">
+<xs:documentation>
+       Timestamp at the time of Logging request.
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="isLogRequired" type="xs:string" default="N" maxOccurs="1" minOccurs="0">
+<xs:annotation id="IsLogging">
+<xs:documentation>
+       This field will be used when the message is coming from ErrorEvent to
+       decide that the message to be logged or not.
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+<xs:element name="spQueryId" type="xs:string" maxOccurs="1" minOccurs="0">
+<xs:annotation id="SpQueryId">
+<xs:documentation>
+       Used by the CSF to fetch request related data from the database (if value
+       of 'isDetailsRequired' element is 'Y')
+      </xs:documentation>
+</xs:annotation>
+</xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:element>
+</xs:schema>

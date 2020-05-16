@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://xmlns.oracle.com/ReSubmission/DynamicEventPublish/DynamicEventPublishBPEL" xmlns="http://www.w3.org/2001/XMLSchema">
+<element name="process">
+<complexType>
+<sequence>
+<element name="EventName" type="string"/>
+<element name="EventNamespace" type="string"/>
+<element name="Payload" type="anyType"/>
+</sequence>
+</complexType>
+</element>
+<element name="processResponse">
+<complexType>
+<sequence>
+<element name="result" type="string"/>
+</sequence>
+</complexType>
+</element>
+</schema>
