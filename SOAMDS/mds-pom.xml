@@ -65,7 +65,7 @@
 									<property name="forceDefault" value="true"/>
 									<!-- folderName : if value is empty..it will remove all.value fmw : It will remove only fmw folder from apps folder-->
 									<!-- if folder name is test , script tries to delete apps\test folder-->
-									<property name="folderName" value="test"/> 
+									<property name="folderName" value=""/> 
 								</ant> 
 							</target>
 						</configuration>
