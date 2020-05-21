@@ -2,17 +2,14 @@
 <project name="maven-antrun-" default="main"  >
 <target name="main">
   <property file="build-dev.properties"/>
-  <zip destfile="D:\CAPG\Practice\GithubLocal\soamdstest\SOAMDS/target/soa-infra_metadata.jar" compress="false">
-    <fileset includes="*/**" dir="${mds.src.dir}/src"/>
-  </zip>
-  <ant antfile="${oracle.home}/soa/bin/ant-sca-deploy.xml" inheritAll="false" target="deploy">
+  <ant antfile="${oracle.home}/soa/bin/ant-sca-deploy.xml" inheritAll="false" target="removeSharedData">
     <property name="mw.home" value="${oracle.home}"/>
     <property name="serverURL" value="http://${target.hostname}:${target.port}"/>
     <property name="user" value="{}"/>
     <property name="password" value="{}"/>
     <property name="overwrite" value="true"/>
     <property name="forceDefault" value="true"/>
-    <property name="sarLocation" value="D:\CAPG\Practice\GithubLocal\soamdstest\SOAMDS/target/soa-infra_metadata.jar"/>
+    <property name="folderName" value="test"/>
   </ant>
 </target>
 </project>

@@ -19,7 +19,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.6</version>
+				<version>1.7</version>
 				<executions>
 					<execution>
 						<id>deployMDS</id>
@@ -31,8 +31,8 @@
 						<configuration>
 							<target>
 								<property file="build-${env}.properties"/>
-								<zip destfile="${project.basedir}/target/soa-infra_metadata.jar" compress="false">
-									<fileset dir="${mds.src.dir}/src" includes="*/**"/>
+								<zip destfile="${project.basedir}/target/MDS-1.0.jar" compress="false">
+									<fileset dir="${mds.src.dir}/src/apps" includes="*/**"/>
 								</zip>							
 								<ant antfile="${oracle.home}/soa/bin/ant-sca-deploy.xml" inheritAll="false" target="deploy">
 									<property name="mw.home" value="${oracle.home}"/>
@@ -41,7 +41,7 @@
 									<property name="password" value="{}"/>
 									<property name="overwrite" value="true"/>
 									<property name="forceDefault" value="true"/>
-									<property name="sarLocation" value="${project.basedir}/target/soa-infra_metadata.jar"/>
+									<property name="sarLocation" value="${project.basedir}/target/MDS-1.0.jar"/>
 								</ant> 
 							</target>
 						</configuration>
@@ -64,7 +64,8 @@
 									<property name="overwrite" value="true"/>
 									<property name="forceDefault" value="true"/>
 									<!-- folderName : if value is empty..it will remove all.value fmw : It will remove only fmw folder from apps folder-->
-									<property name="folderName" value="isg"/> 
+									<!-- if folder name is test , script tries to delete apps\test folder-->
+									<property name="folderName" value="test"/> 
 								</ant> 
 							</target>
 						</configuration>
